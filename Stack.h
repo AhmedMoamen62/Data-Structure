@@ -81,7 +81,10 @@ void Stack<T>::pop()
     }
     Node<T>* temp = this->head;
     this->head = this->head->next;
-    this->head->prev = nullptr;
+    if(this->tail != nullptr)
+        this->tail->next = nullptr;
+    else
+        this->head = nullptr;
     delete temp;
     n--;
 }
@@ -98,6 +101,8 @@ T Stack<T>::peek()
 template<class T>
 void Stack<T>::print(bool inverse)
 {
+    if(this->empty())
+        return;
     if(!inverse)
     {
         Node<T>* trav = this->head;
@@ -123,10 +128,7 @@ template<class T>
 void Stack<T>::clear()
 {
     if(this->empty())
-    {
-        n = 0;
         return;
-    }
     pop();
     clear();
 }

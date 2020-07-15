@@ -11,6 +11,19 @@ int main()
     x.push(10);
     x.push(20);
     x.print();
+    x.clear();
+    x.print();
+    int y[5];
+    y[0] = -2;
+    y[1] = 13;
+    y[2] = 5;
+    y[3] = 3;
+    y[4] = 1;
+    int z[5];
+    merge_sort(y,z,5);
+    for(int i = 0 ; i < 5 ; i++)
+        cout << z[i] << " ";
+    cout << endl;
 //    Linkedlist<int> x;
 //    x.push_back(8);
 //    x.push_back(-2);

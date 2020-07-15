@@ -4,17 +4,28 @@
 #include <iostream>
 using namespace std;
 
-int binary_search(int,int*,int);
-int find_max(int*,int);
-int sum(int*,int);
-void decimal2binary(int);
-void print_even(int);
-int factorial(int);
-int fibbonaci(int);
+template <typename T>
+T binary_search(T,T*,T);
+template <typename T>
+T find_max(T*,T);
+template <typename T>
+T sum(T*,T);
+template <typename T>
+void decimal2binary(T);
+template <typename T>
+void print_even(T);
+template <typename T>
+T factorial(T);
+template <typename T>
+T fibbonaci(T);
 template <typename T>
 void swapel(T&,T&);
 template <typename T>
-void bubbl_sort(int,T*);
+void bubbl_sort(T,T*);
+template <typename T>
+void merge_sort(T* arr,T* sorted_arr,int n);
+template <typename T>
+void merge(T* l_arr,T* r_arr,int l_len,int r_len,T* sorted_arr);
 
 
 template <typename T>
@@ -26,12 +37,12 @@ void swapel(T& a,T& b)
 }
 
 template <typename T>
-void bubbl_sort(int n,T* arr)
+void bubbl_sort(T n,T* arr)
 {
-    for(int i = 0; i < n ; i++)
+    for(T i = 0; i < n ; i++)
     {
         bool swapped = false;
-        for(int j = 0; j < n - 1 - i; j++)
+        for(T j = 0; j < n - 1 - i; j++)
         {
             if(arr[j] > arr[j + 1])
             {
@@ -44,7 +55,8 @@ void bubbl_sort(int n,T* arr)
     }
 }
 
-int fibbonaci(int n)
+template <typename T>
+T fibbonaci(T n)
 {
     if(n <= 1)
     {
@@ -53,7 +65,8 @@ int fibbonaci(int n)
     return fibbonaci(n - 1) + fibbonaci(n - 2);
 }
 
-int factorial(int n)
+template <typename T>
+T factorial(T n)
 {
     if(n == 1 || n == 0)
     {
@@ -62,7 +75,8 @@ int factorial(int n)
     return n*factorial(n - 1);
 }
 
-void print_even(int n)
+template <typename T>
+void print_even(T n)
 {
     if(n >= 0)
     {
@@ -71,7 +85,8 @@ void print_even(int n)
     }
 }
 
-void decimal2binary(int n)
+template <typename T>
+void decimal2binary(T n)
 {
     if(n > 0)
     {
@@ -81,7 +96,8 @@ void decimal2binary(int n)
 }
 
 // O(n)
-int sum(int* arr,int n)
+template <typename T>
+T sum(T* arr,T n)
 {
     if(n == 1)
     {
@@ -90,7 +106,8 @@ int sum(int* arr,int n)
     return arr[n - 1] + sum(arr, n - 1);
 }
 // O(n)
-int find_max(int* arr,int n)
+template <typename T>
+T find_max(T* arr,T n)
 {
     if(n == 1)
     {
@@ -99,13 +116,14 @@ int find_max(int* arr,int n)
     return max(arr[n - 1],find_max(arr,n - 1));
 }
 // O(log n)
-int binary_search(int n,int* arr,int value)
+template <typename T>
+T binary_search(T n,T* arr,T value)
 {
-    int low = 0;
-    int high = n-1;
+    T low = 0;
+    T high = n-1;
     while (low <= high)
     {
-        int mid = (low + high)/2;
+        T mid = (low + high)/2;
         if(arr[mid] == value)
         {
             return mid;
@@ -120,6 +138,54 @@ int binary_search(int n,int* arr,int value)
         }
     }
     return -1;
+}
+
+template <typename T>
+void merge_sort(T* arr,T* sorted_arr,int n)
+{
+    if(n == 1)
+    {
+        sorted_arr[0] = arr[0];
+        return;
+    }
+    int mid = n/2;
+
+    T* l_arr = new T[mid];
+    T* r_arr = new T[n - mid];
+
+    T* sorted_l_arr = new T[mid];
+    T* sorted_r_arr = new T[n - mid];
+
+    for(int i = 0 ; i < mid ; i++)
+        l_arr[i] = arr[i];
+    for(int j = mid ; j < n ; j++)
+        r_arr[j - mid] = arr[j];
+
+    merge_sort(l_arr,sorted_l_arr,mid);
+    merge_sort(r_arr,sorted_r_arr,n - mid);
+
+    merge(sorted_l_arr,sorted_r_arr,mid,n - mid,sorted_arr);
+
+    delete [] l_arr;
+    delete [] r_arr;
+    delete [] sorted_l_arr;
+    delete [] sorted_r_arr;
+}
+template <typename T>
+void merge(T* l_arr,T* r_arr,int l_len,int r_len,T* sorted_arr)
+{
+    int l = 0,r = 0,index = 0;
+    while(l < l_len && r < r_len)
+    {
+        if(l_arr[l] > r_arr[r])
+            sorted_arr[index++] = l_arr[l++];
+        else
+            sorted_arr[index++] = r_arr[r++];
+    }
+    while (l < l_len)
+        sorted_arr[index++] = l_arr[l++];
+    while (r < r_len)
+        sorted_arr[index++] = r_arr[r++];
 }
 
 #endif // ALGORITHMS_H

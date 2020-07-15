@@ -143,7 +143,10 @@ void Linkedlist<T>::pop_front()
     }
     Node<T>* temp = this->head;
     this->head = this->head->next;
-    this->head->prev = nullptr;
+    if(this->head != nullptr)
+        this->head->prev = nullptr;
+    else
+        this->tail = nullptr;
     delete temp;
     n--;
 }
@@ -173,7 +176,10 @@ void Linkedlist<T>::pop_back()
     }
     Node<T>* temp = this->tail;
     this->tail = this->tail->prev;
-    this->tail->next = nullptr;
+    if(this->tail != nullptr)
+        this->tail->next = nullptr;
+    else
+        this->head = nullptr;
     delete temp;
     n--;
 }
@@ -260,6 +266,8 @@ int Linkedlist<T>::indexOf(T d)
 template<class T>
 void Linkedlist<T>::print(bool inverse)
 {
+    if(this->empty())
+        return;
     if(!inverse)
     {
         Node<T>* trav = this->head;
@@ -308,7 +316,6 @@ void Linkedlist<T>::clear()
     {
         pop_back();
     }
-    n = 0;
 //    if(this->empty())
 //    {
 //        return;
