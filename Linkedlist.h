@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "Algorithms.h"
 #include "Node.h"
 using namespace std;
 
@@ -10,7 +11,6 @@ class Linkedlist
     int n; //size
     void remove(Node<T>*);
     void insert(Node<T>*,T);
-    void swap(T&,T&);
     T& getel(int);
 public:
     Linkedlist();
@@ -32,7 +32,7 @@ public:
     ~Linkedlist();
 };
 
-template<typename T>
+template<class T>
 void Linkedlist<T>::remove(Node<T>* node)
 {
     if(node->next == nullptr)
@@ -53,7 +53,7 @@ void Linkedlist<T>::remove(Node<T>* node)
     n--;
 }
 
-template<typename T>
+template<class T>
 void Linkedlist<T>::insert(Node<T> * node,T d)
 {
     if(node->next == nullptr)
@@ -72,16 +72,7 @@ void Linkedlist<T>::insert(Node<T> * node,T d)
     n++;
 }
 
-template<typename T>
-void Linkedlist<T>::swap(T& left, T& right)
-{
-    T temp = left;
-    left = right;
-    right = temp;
-}
-
-
-template<typename T>
+template<class T>
 T& Linkedlist<T>::getel(int index)
 {
     Node<T>* node_left = this->head;
@@ -101,20 +92,20 @@ T& Linkedlist<T>::getel(int index)
     }
 }
 
-template<typename T>
+template<class T>
 Linkedlist<T>::Linkedlist()
 {
     n = 0;
     head = nullptr;
     tail = nullptr;
 }
-template<typename T>
+template<class T>
 bool Linkedlist<T>::empty()
 {
     return this->head == nullptr;
 }
 
-template<typename T>
+template<class T>
 int Linkedlist<T>::length()
 {
     Node<T> * trav = this->head;
@@ -127,7 +118,7 @@ int Linkedlist<T>::length()
     return length;
 }
 
-template<typename T>
+template<class T>
 void Linkedlist<T>::push_front(T d)
 {
     Node<T>* new_head = new Node<T>(d,this->head);
@@ -143,7 +134,7 @@ void Linkedlist<T>::push_front(T d)
     n++;
 }
 
-template<typename T>
+template<class T>
 void Linkedlist<T>::pop_front()
 {
     if(this->empty())
@@ -173,7 +164,7 @@ void Linkedlist<T>::push_back(T d)
     n++;
 }
 
-template<typename T>
+template<class T>
 void Linkedlist<T>::pop_back()
 {
     if(this->empty())
@@ -187,7 +178,7 @@ void Linkedlist<T>::pop_back()
     n--;
 }
 
-template<typename T>
+template<class T>
 void Linkedlist<T>::removeAt(int index)
 {
     if(index < 0 || index > n - 1 || this->empty())
@@ -211,7 +202,7 @@ void Linkedlist<T>::removeAt(int index)
     }
 }
 
-template<typename T>
+template<class T>
 void Linkedlist<T>::insertAt(int index,T d)
 {
     if(index < 0 || index > n - 1)
@@ -235,7 +226,7 @@ void Linkedlist<T>::insertAt(int index,T d)
     }
 }
 
-template<typename T>
+template<class T>
 void Linkedlist<T>::remove(T d)
 {
     int index = indexOf(d);
@@ -245,7 +236,7 @@ void Linkedlist<T>::remove(T d)
     n--;
 }
 
-template<typename T>
+template<class T>
 int Linkedlist<T>::indexOf(T d)
 {
     if(this->empty())
@@ -266,7 +257,7 @@ int Linkedlist<T>::indexOf(T d)
     return -1;
 }
 
-template<typename T>
+template<class T>
 void Linkedlist<T>::print(bool inverse)
 {
     if(!inverse)
@@ -290,7 +281,7 @@ void Linkedlist<T>::print(bool inverse)
     cout << endl;
 }
 
-template<typename T>
+template<class T>
 bool Linkedlist<T>::contains(T d)
 {
     return indexOf(d) != -1;
@@ -310,7 +301,7 @@ bool Linkedlist<T>::contains(T d)
 //    return false;
 }
 
-template<typename T>
+template<class T>
 void Linkedlist<T>::clear()
 {
     while (!this->empty())
@@ -334,10 +325,10 @@ void Linkedlist<T>::clear()
     //    n = 0;
 }
 
-template<typename T>
+template<class T>
 void Linkedlist<T>::bubble_sort()
 {
-    if(this->empty())
+    if(this->empty() || this->head->next == nullptr)
         return;
     for(int i = 0; i < n ; i++)
     {
@@ -347,7 +338,7 @@ void Linkedlist<T>::bubble_sort()
         {
             if(current->data > current->next->data)
             {
-                swap(current->data,current->next->data);
+                swapel(current->data,current->next->data);
                 swapped = true;
             }
             current = current->next;
@@ -357,13 +348,13 @@ void Linkedlist<T>::bubble_sort()
     }
 }
 
-template<typename T>
+template<class T>
 T& Linkedlist<T>::operator[](int index)
 {
     return getel(index);
 }
 
-template<typename T>
+template<class T>
 Linkedlist<T>::~Linkedlist()
 {
     clear();

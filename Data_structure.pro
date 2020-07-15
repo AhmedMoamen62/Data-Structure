@@ -7,6 +7,8 @@ SOURCES += \
         main.cpp
 
 HEADERS += \
+    Algorithms.h \
     Dynamicarray.h \
     Linkedlist.h \
-    Node.h
+    Node.h \
+    Stack.h

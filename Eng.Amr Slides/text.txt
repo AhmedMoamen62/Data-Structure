@@ -1,0 +1,12 @@
+1.Big-oh & Recursive Functions.pdf
+2.Abstract DS & Linkedlist.pdf
+3.Bubble sort & Stack.pdf   
+4.Stack in STL & Binary search.pdf
+5.Quick & Selection sort & Queue.pdf
+6.Trees.pdf
+7.Graph & Adjacency matrix.pdf 
+8.1.Adjacency list.pdf
+8.2.Dijkstra.pdf
+9.PageRank.pdf
+10.Heap.pdf               
+11.Hashing.pdf
