@@ -3,53 +3,85 @@
 #include "Dynamicarray.h"
 #include "Linkedlist.h"
 #include "Stack.h"
+#include "Queue.h"
+#include "Binary_Tree.h"
 using namespace std;
 
 int main()
 {
-    Stack<int> x;
-    x.push(10);
-    x.push(20);
-    x.print();
-    x.clear();
-    x.print();
-    int y[5];
-    y[0] = -2;
-    y[1] = 13;
-    y[2] = 5;
-    y[3] = 3;
-    y[4] = 1;
-    int z[5];
-    merge_sort(y,z,5);
-    for(int i = 0 ; i < 5 ; i++)
-        cout << z[i] << " ";
-    cout << endl;
-//    Linkedlist<int> x;
-//    x.push_back(8);
-//    x.push_back(-2);
-//    x.push_back(4);
-//    x.push_back(140);
-//    x.push_back(-10);
-//    x.push_back(30);
-//    x.print();
-//    x.bubble_sort();
-//    x.print();
-//    x.removeAt(3);
-//    x.print();
-//    x.removeAt(2);
-//    //    x[3]++;
-//    //    cout << x[3] << endl;
-//    //cout << x.indexOf(200) << endl;
-//    x.print();
-//    x.insertAt(2,18);
-//    //x.pop_front();
-//    x.print();
-//    cout << x.length() << endl;
-//    cout << x.contains(4) << endl;
-//    x.remove(-2);
-//    x.print(1);
-//    x.clear();
-//    x.print(1);
+    //    Binary_Tree<string> x;
+    //    x.initial();
+    //    cout << number_of_leaves(x.tree_root()) << endl;
+    //    cout << evaluate(x.tree_root()) << endl;
+    //    cout << height_of_tree(x.tree_root()) << endl;
+
+    //    int y[5];
+    //    y[0] = -2;
+    //    y[1] = 13;
+    //    y[2] = 5;
+    //    y[3] = 3;
+    //    y[4] = 1;
+
+    //    quick_sort(y,0,4);
+    //    selection_sort(5,y);
+    //    for(int i = 0 ; i < 5 ; i++)
+    //        cout << y[i] << " ";
+    //    cout << endl;
+
+    //    Queue<int> x;
+    //    x.push(13);
+    //    x.push(6);
+    //    x.job_statistics();
+    //    x.pop();
+    //    x.push(-6);
+    //    x.print();
+
+    //    Stack<int> x;
+    //    x.push(10);
+    //    x.push(20);
+    //    x.print();
+    //    x.clear();
+    //    x.print();
+
+    //    int y[5];
+    //    y[0] = -2;
+    //    y[1] = 13;
+    //    y[2] = 5;
+    //    y[3] = 3;
+    //    y[4] = 1;
+    //    int z[5];
+    //    merge_sort(y,z,5);
+    //    for(int i = 0 ; i < 5 ; i++)
+    //        cout << z[i] << " ";
+    //    cout << endl;
+
+    //    Linkedlist<int> x;
+    //    x.push_back(8);
+    //    x.push_back(-2);
+    //    x.push_back(4);
+    //    x.push_back(140);
+    //    x.push_back(-10);
+    //    x.push_back(30);
+    //    x.selection_sort();
+    //    x.print();
+    //    x.bubble_sort();
+    //    x.print();
+    //    x.removeAt(3);
+    //    x.print();
+    //    x.removeAt(2);
+    //    //    x[3]++;
+    //    //    cout << x[3] << endl;
+    //    //cout << x.indexOf(200) << endl;
+    //    x.print();
+    //    x.insertAt(2,18);
+    //    //x.pop_front();
+    //    x.print();
+    //    cout << x.length() << endl;
+    //    cout << x.contains(4) << endl;
+    //    x.remove(-2);
+    //    x.print(1);
+    //    x.clear();
+    //    x.print(1);
 
     //    int arr[5];
     //    arr[0] = -5;

@@ -1,32 +1,122 @@
-#ifndef ALGORITHMS_H
-#define ALGORITHMS_H
-
+#pragma once
 #include <iostream>
+#include "Binary_Tree.h"
 using namespace std;
+
 
 template <typename T>
 T binary_search(T,T*,T);
+
 template <typename T>
 T find_max(T*,T);
+
 template <typename T>
 T sum(T*,T);
+
 template <typename T>
 void decimal2binary(T);
+
 template <typename T>
 void print_even(T);
+
 template <typename T>
 T factorial(T);
+
+template <typename T>
+T power(T,T);
+
 template <typename T>
 T fibbonaci(T);
+
 template <typename T>
 void swapel(T&,T&);
+
 template <typename T>
-void bubbl_sort(T,T*);
+void bubble_sort(int,T*);
+
+template <typename T>
+void selection_sort(int,T*);
+
 template <typename T>
 void merge_sort(T* arr,T* sorted_arr,int n);
+
 template <typename T>
 void merge(T* l_arr,T* r_arr,int l_len,int r_len,T* sorted_arr);
 
+template <typename T>
+void quick_sort(T* arr,int l,int r);
+
+template <typename T>
+int evaluate(Node_Binary<T>*);
+
+template <typename T>
+int number_of_leaves(Node_Binary<T>*);
+
+template <typename T>
+int height_of_tree(Node_Binary<T>*);
+
+template <typename T>
+int tree_max(Node_Binary<T>*);
+
+template <typename T>
+int tree_min(Node_Binary<T>*);
+
+int eval(int left_operand,int right_operand,string op);
+
+
+template <typename T>
+int evaluate(Node_Binary<T>* root)
+{
+    if(root->is_numeric())
+        return root->to_numeric();
+
+    int left_subtree = evaluate(root->left);
+    int right_subtree = evaluate(root->right);
+
+    return eval(left_subtree,right_subtree,root->data);
+}
+
+
+template <typename T>
+int number_of_leaves(Node_Binary<T>* root)
+{
+    if(root == nullptr)
+        return 0;
+    if(root->left == nullptr && root->right == nullptr)
+        return 1;
+
+    return number_of_leaves(root->left) + number_of_leaves(root->right);
+}
+
+template <typename T>
+int height_of_tree(Node_Binary<T>* root)
+{
+    if(root == nullptr)
+        return 0;
+    if(root->left == nullptr && root->right == nullptr)
+        return 1;
+
+    int height_left = height_of_tree(root->left);
+    int height_right = height_of_tree(root->right);
+
+    return max(height_left,height_right) + 1;
+}
+
+template <typename T>
+int tree_max(Node_Binary<T>* node)
+{
+    if(node->right == nullptr)
+        return node->data;
+    return tree_max(node->right);
+}
+
+template <typename T>
+int tree_min(Node_Binary<T>* node)
+{
+    if(node->left == nullptr)
+        return node->data;
+    return tree_min(node->left);
+}
 
 template <typename T>
 void swapel(T& a,T& b)
@@ -37,22 +127,79 @@ void swapel(T& a,T& b)
 }
 
 template <typename T>
-void bubbl_sort(T n,T* arr)
+void bubble_sort(int n,T* arr)
 {
-    for(T i = 0; i < n ; i++)
+    for(int i = 0; i < n ; i++)
     {
         bool swapped = false;
-        for(T j = 0; j < n - 1 - i; j++)
+        for(int j = 0; j < n - 1 - i; j++)
         {
             if(arr[j] > arr[j + 1])
             {
-                swap(arr[j],arr[j + 1]);
+                swap_element(arr[j],arr[j + 1]);
                 swapped = true;
             }
         }
         if(!swapped)
             return;
     }
+}
+
+template <typename T>
+void selection_sort(int n,T* arr)
+{
+    for(int i = 0; i < n - 1; i++)
+    {
+        T max_index = i;
+        for(int j = i + 1; j < n ; j++)
+        {
+            if(arr[j] > arr[max_index])
+            {
+                max_index = j;
+            }
+        }
+        swapel(arr[max_index],arr[i]);
+    }
+}
+
+
+template <typename T>
+void quick_sort(T* arr,int l,int r)
+{
+    if(l >= r)
+        return;
+    T pivot = arr[l];
+    int i = l, j = r;
+    while(i != j)
+    {
+        if(arr[i] < arr[j])
+        {
+            swapel(arr[i],arr[j]);
+            if(arr[i] == pivot)
+                j--;
+            else
+                i++;
+        }
+        else
+        {
+            if(arr[i] == pivot)
+                j--;
+            else
+                i++;
+        }
+    }
+    quick_sort(arr,l,i - 1);
+    quick_sort(arr,i + 1,r);
+}
+
+template <typename T>
+T power(T d,T n)
+{
+    if(n == 0)
+        return 1;
+    if(n == 1)
+        return d;
+    return d*power(d,n - 1);
 }
 
 template <typename T>
@@ -188,4 +335,16 @@ void merge(T* l_arr,T* r_arr,int l_len,int r_len,T* sorted_arr)
         sorted_arr[index++] = r_arr[r++];
 }
 
-#endif // ALGORITHMS_H
+int eval(int left_operand,int right_operand,string op)
+{
+    if(op == "+")
+        return left_operand + right_operand;
+    if(op == "-")
+        return left_operand - right_operand;
+    if(op == "*")
+        return left_operand * right_operand;
+    if(op == "/")
+        return left_operand / right_operand;
+    if(op == "^")
+        return power(left_operand,right_operand);
+}

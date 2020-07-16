@@ -28,6 +28,7 @@ public:
     bool contains(T);
     void clear();
     void bubble_sort();
+    void selection_sort();
     T& operator[](int);
     ~Linkedlist();
 };
@@ -352,6 +353,29 @@ void Linkedlist<T>::bubble_sort()
         }
         if(!swapped)
             return;
+    }
+}
+
+template<class T>
+void Linkedlist<T>::selection_sort()
+{
+    if(this->empty() || this->head->next == nullptr)
+        return;
+    Node<T>* current_node = this->head;
+    for(int i = 0; i < n - 1; i++)
+    {
+        Node<T>* max_node = current_node;
+        Node<T>* iteration_node = current_node;
+        for(int j = i + 1; j < n ; j++)
+        {
+            if(iteration_node->next->data > max_node->data)
+            {
+                max_node = iteration_node->next;
+            }
+            iteration_node = iteration_node->next;
+        }
+        swapel(max_node->data,current_node->data);
+        current_node = current_node->next;
     }
 }
 

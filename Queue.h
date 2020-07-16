@@ -5,26 +5,27 @@
 using namespace std;
 
 template <class T>
-class Stack
+class Queue
 {
     Node<T>* head,* tail;
     int n; //size
 public:
-    Stack();
-    Stack(T);
+    Queue();
+    Queue(T);
     bool empty();
     int length();
     void push(T);
     void pop();
-    T peek();
-    bool isequal(Stack);
+    T front();
+    T back();
+    void job_statistics();
     void print(bool inverse = false);
     void clear();
-    ~Stack();
+    ~Queue();
 };
 
 template<class T>
-Stack<T>::Stack()
+Queue<T>::Queue()
 {
     n = 0;
     head = nullptr;
@@ -32,20 +33,20 @@ Stack<T>::Stack()
 }
 
 template<class T>
-Stack<T>::Stack(T d)
+Queue<T>::Queue(T d)
 {
     n = 1;
     push(d);
 }
 
 template<class T>
-bool Stack<T>::empty()
+bool Queue<T>::empty()
 {
     return this->head == nullptr;
 }
 
 template<class T>
-int Stack<T>::length()
+int Queue<T>::length()
 {
     Node<T> * trav = this->head;
     int length = 0;
@@ -58,23 +59,23 @@ int Stack<T>::length()
 }
 
 template<class T>
-void Stack<T>::push(T d)
+void Queue<T>::push(T d)
 {
-    Node<T>* new_head = new Node<T>(d,this->head);
+    Node<T>* new_tail = new Node<T>(d,nullptr,this->tail);
     if(this->empty())
     {
-        this->head = new_head;
-        this->tail = new_head;
+        this->head = new_tail;
+        this->tail = new_tail;
         n++;
         return;
     }
-    this->head->prev = new_head;
-    this->head = new_head;
+    this->tail->next = new_tail;
+    this->tail = new_tail;
     n++;
 }
 
 template<class T>
-void Stack<T>::pop()
+void Queue<T>::pop()
 {
     if(this->empty())
     {
@@ -91,7 +92,39 @@ void Stack<T>::pop()
 }
 
 template<class T>
-T Stack<T>::peek()
+T Queue<T>::back()
+{
+    if(!this->empty())
+    {
+        return this->tail->data;
+    }
+}
+
+template<class T>
+void Queue<T>::job_statistics()
+{
+    int size = this->length();
+
+    T total_service_time = 0;
+    T total_waiting_time = 0;
+    for(int i = 0; i < size ; i++)
+    {
+        T current_time = this->front();
+
+        this->pop();
+
+        total_waiting_time += total_service_time;
+        total_service_time += current_time;
+
+        this->push(current_time);
+    }
+
+    cout << "Total serive time is : " << total_service_time << endl;
+    cout << "Total waiting time is : " << (float)total_waiting_time/size << endl;
+}
+
+template<class T>
+T Queue<T>::front()
 {
     if(!this->empty())
     {
@@ -100,21 +133,7 @@ T Stack<T>::peek()
 }
 
 template<class T>
-bool Stack<T>::isequal(Stack s)
-{
-    Stack temp = *this;
-    while(!temp.empty() && !s.empty())
-    {
-        if(temp.peek() != s.peek())
-            return false;
-        s.pop();
-        temp.pop();
-    }
-    return temp.empty() && s.empty();
-}
-
-template<class T>
-void Stack<T>::print(bool inverse)
+void Queue<T>::print(bool inverse)
 {
     if(this->empty())
         return;
@@ -140,7 +159,7 @@ void Stack<T>::print(bool inverse)
 }
 
 template<class T>
-void Stack<T>::clear()
+void Queue<T>::clear()
 {
     if(this->empty())
         return;
@@ -149,7 +168,7 @@ void Stack<T>::clear()
 }
 
 template<class T>
-Stack<T>::~Stack()
+Queue<T>::~Queue()
 {
     clear();
 }
