@@ -14,4 +14,5 @@ HEADERS += \
     Node.h \
     Node_Binary.h \
     Queue.h \
-    Stack.h
+    Stack.h \
+    UnionFind.h

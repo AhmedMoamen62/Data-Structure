@@ -5,10 +5,23 @@
 #include "Stack.h"
 #include "Queue.h"
 #include "Binary_Tree.h"
+#include "UnionFind.h"
 using namespace std;
 
 int main()
 {
+    char y[5];
+    y[0] = 'A';
+    y[1] = 'B';
+    y[2] = 'C';
+    y[3] = 'D';
+    y[4] = 'E';
+
+    UnionFind<char> x(5,y);
+    x.unify('A','B');
+    x.unify('B','C');
+    x.unify('C','D');
+
     //    Binary_Tree<string> x;
     //    x.initial();
     //    cout << number_of_leaves(x.tree_root()) << endl;
