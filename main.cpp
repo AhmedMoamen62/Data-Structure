@@ -10,17 +10,39 @@ using namespace std;
 
 int main()
 {
-    char y[5];
-    y[0] = 'A';
-    y[1] = 'B';
-    y[2] = 'C';
-    y[3] = 'D';
-    y[4] = 'E';
+    Binary_Tree<int> x(3);
+    x.remove(3);
+    x.insert(2);
+    x.insert(6);
+    x.insert(5);
+    x.insert(8);
+    x.insert(6);
+    x.print();
+    x.insert(9);
+    x.print();
+    cout << x.find(6) << " " << x.find(8) << endl;
+    x.remove(6);
+    x.print();
 
-    UnionFind<char> x(5,y);
-    x.unify('A','B');
-    x.unify('B','C');
-    x.unify('C','D');
+//    Linkedlist<int> y;
+//    y.push_back(5);
+//    y.push_back(-2);
+//    y.push_back(1);
+//    y.pop_back();
+//    y.print();
+
+
+    //    char y[5];
+    //    y[0] = 'A';
+    //    y[1] = 'B';
+    //    y[2] = 'C';
+    //    y[3] = 'D';
+    //    y[4] = 'E';
+
+    //    UnionFind<char> x(5,y);
+    //    x.unify('A','B');
+    //    x.unify('B','C');
+    //    x.unify('C','D');
 
     //    Binary_Tree<string> x;
     //    x.initial();
