@@ -8,7 +8,10 @@ class Binary_Tree
 {
     Node_Binary<T>* root;
     int n;
-    void print_node(Node_Binary<T>*);
+    void deleteNode(Node_Binary<T>*);
+    void preorder(Node_Binary<T>*);
+    void inorder(Node_Binary<T>*);
+    void postorder(Node_Binary<T>*);
     bool find_node(Node_Binary<T>*,T);
     void insertAt(Node_Binary<T>*,T);
     void removeAt(Node_Binary<T>*,Node_Binary<T> *,T);
@@ -17,6 +20,12 @@ class Binary_Tree
     Node_Binary<T>* largest_node(Node_Binary<T>*,Node_Binary<T>*);
     Node_Binary<T>* smallest_node(Node_Binary<T>*,Node_Binary<T>*);
     void null_child(Node_Binary<T> *,Node_Binary<T> *);
+    int count_leaves(Node_Binary<T>*);
+    int height_of_tree(Node_Binary<T>*);
+    int tree_max(Node_Binary<T>*);
+    int tree_min(Node_Binary<T>*);
+    int evaluate(Node_Binary<T>*);
+    int eval(int,int,string);
 public:
     Binary_Tree();
     Binary_Tree(T);
@@ -27,8 +36,16 @@ public:
     void insert(T);
     void remove(T);
     bool find(T);
-    void print();
+    void print_preorder();
+    void print_inorder();
+    void print_postorder();
+    int number_of_leaves();
+    int height();
+    int Max();
+    int Min();
+    int equation_calculator();
     bool empty();
+    void clear();
     ~Binary_Tree();
 };
 
@@ -115,23 +132,106 @@ bool Binary_Tree<T>::find(T d)
 }
 
 template<class T>
-void Binary_Tree<T>::print()
+void Binary_Tree<T>::print_preorder()
 {
     if(this->empty())
         return;
-    print_node(root);
+    preorder(root);
 
     cout << endl;
 }
 
 template<class T>
-void Binary_Tree<T>::print_node(Node_Binary<T> * node)
+void Binary_Tree<T>::print_inorder()
+{
+    if(this->empty())
+        return;
+    inorder(root);
+
+    cout << endl;
+}
+
+template<class T>
+void Binary_Tree<T>::print_postorder()
+{
+    if(this->empty())
+        return;
+    postorder(root);
+
+    cout << endl;
+}
+
+template<class T>
+int Binary_Tree<T>::number_of_leaves()
+{
+    return count_leaves(root);
+}
+
+template<class T>
+int Binary_Tree<T>::height()
+{
+    return height_of_tree(root);
+}
+
+template<class T>
+int Binary_Tree<T>::Max()
+{
+    return tree_max(root);
+}
+
+template<class T>
+int Binary_Tree<T>::Min()
+{
+    return tree_min(root);
+}
+
+template<class T>
+int Binary_Tree<T>::equation_calculator()
+{
+    return evaluate(root);
+}
+
+template<class T>
+void Binary_Tree<T>::deleteNode(Node_Binary<T> * node)
+{
+    if(node == nullptr)
+        return;
+
+    deleteNode(node->left);
+    deleteNode(node->right);
+
+    n--;
+    delete node;
+}
+
+template<class T>
+void Binary_Tree<T>::preorder(Node_Binary<T> * node)
 {
     if(node == nullptr)
         return;
     cout << node->data << " ";
-    print_node(node->left);
-    print_node(node->right);
+    preorder(node->left);
+    preorder(node->right);
+}
+
+template<class T>
+void Binary_Tree<T>::inorder(Node_Binary<T> * node)
+{
+    if(node == nullptr)
+        return;
+    inorder(node->left);
+    cout << node->data << " ";
+    inorder(node->right);
+}
+
+template<class T>
+void Binary_Tree<T>::postorder(Node_Binary<T> * node)
+{
+    if(node == nullptr)
+        return;
+    postorder(node->left);
+    postorder(node->right);
+    cout << node->data << " ";
 }
 
 template<class T>
@@ -213,14 +313,14 @@ void Binary_Tree<T>::remove_semi_leaf(Node_Binary<T> * node)
 {
     if(node->left == nullptr)
     {
-        swap(node->right->data,node->data);
+        swapel(node->right->data,node->data);
         Node_Binary<T> * temp = node->right;
         node->right = nullptr;
         delete temp;
     }
     else if(node->right == nullptr)
     {
-        swap(node->left->data,node->data);
+        swapel(node->left->data,node->data);
         Node_Binary<T> * temp = node->left;
         node->left = nullptr;
         delete temp;
@@ -271,13 +371,91 @@ void Binary_Tree<T>::null_child(Node_Binary<T> * node,Node_Binary<T> * parent)
 }
 
 template<class T>
+int Binary_Tree<T>::count_leaves(Node_Binary<T> * node)
+{
+    if(node == nullptr)
+        return 0;
+    if(node->left == nullptr && node->right == nullptr)
+        return 1;
+
+    return count_leaves(node->left) + count_leaves(node->right);
+}
+
+template<class T>
+int Binary_Tree<T>::height_of_tree(Node_Binary<T> * node)
+{
+    if(node == nullptr)
+        return 0;
+    if(node->left == nullptr && node->right == nullptr)
+        return 1;
+
+    int height_left = height_of_tree(node->left);
+    int height_right = height_of_tree(node->right);
+
+    return max(height_left,height_right) + 1;
+}
+
+template<class T>
+int Binary_Tree<T>::tree_max(Node_Binary<T> * node)
+{
+    if(node->right == nullptr)
+        return node->data;
+    return tree_max(node->right);
+}
+
+template<class T>
+int Binary_Tree<T>::tree_min(Node_Binary<T> * node)
+{
+    if(node->left == nullptr)
+        return node->data;
+    return tree_min(node->left);
+}
+
+template<class T>
+int Binary_Tree<T>::evaluate(Node_Binary<T> * node)
+{
+    if(node->is_numeric())
+        return node->to_numeric();
+
+    int left_subtree = evaluate(node->left);
+    int right_subtree = evaluate(node->right);
+
+    return eval(left_subtree,right_subtree,node->data);
+}
+
+template<class T>
+int Binary_Tree<T>::eval(int left_operand, int right_operand, string op)
+{
+    if(op == "+")
+        return left_operand + right_operand;
+    if(op == "-")
+        return left_operand - right_operand;
+    if(op == "*")
+        return left_operand * right_operand;
+    if(op == "/")
+        return left_operand / right_operand;
+    if(op == "^")
+        return power(left_operand,right_operand);
+}
+
+template<class T>
 bool Binary_Tree<T>::empty()
 {
     return this->root == nullptr;
 }
 
 template<class T>
+void Binary_Tree<T>::clear()
+{
+    if(this->empty())
+        return;
+
+    deleteNode(root);
+    root = nullptr;
+}
+
+template<class T>
 Binary_Tree<T>::~Binary_Tree()
 {
-
+    clear();
 }

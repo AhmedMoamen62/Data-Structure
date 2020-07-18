@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-#include "Binary_Tree.h"
 using namespace std;
 
 
@@ -46,77 +45,6 @@ void merge(T* l_arr,T* r_arr,int l_len,int r_len,T* sorted_arr);
 template <typename T>
 void quick_sort(T* arr,int l,int r);
 
-template <typename T>
-int evaluate(Node_Binary<T>*);
-
-template <typename T>
-int number_of_leaves(Node_Binary<T>*);
-
-template <typename T>
-int height_of_tree(Node_Binary<T>*);
-
-template <typename T>
-int tree_max(Node_Binary<T>*);
-
-template <typename T>
-int tree_min(Node_Binary<T>*);
-
-int eval(int left_operand,int right_operand,string op);
-
-
-template <typename T>
-int evaluate(Node_Binary<T>* root)
-{
-    if(root->is_numeric())
-        return root->to_numeric();
-
-    int left_subtree = evaluate(root->left);
-    int right_subtree = evaluate(root->right);
-
-    return eval(left_subtree,right_subtree,root->data);
-}
-
-
-template <typename T>
-int number_of_leaves(Node_Binary<T>* root)
-{
-    if(root == nullptr)
-        return 0;
-    if(root->left == nullptr && root->right == nullptr)
-        return 1;
-
-    return number_of_leaves(root->left) + number_of_leaves(root->right);
-}
-
-template <typename T>
-int height_of_tree(Node_Binary<T>* root)
-{
-    if(root == nullptr)
-        return 0;
-    if(root->left == nullptr && root->right == nullptr)
-        return 1;
-
-    int height_left = height_of_tree(root->left);
-    int height_right = height_of_tree(root->right);
-
-    return max(height_left,height_right) + 1;
-}
-
-template <typename T>
-int tree_max(Node_Binary<T>* node)
-{
-    if(node->right == nullptr)
-        return node->data;
-    return tree_max(node->right);
-}
-
-template <typename T>
-int tree_min(Node_Binary<T>* node)
-{
-    if(node->left == nullptr)
-        return node->data;
-    return tree_min(node->left);
-}
 
 template <typename T>
 void swapel(T& a,T& b)
@@ -335,16 +263,3 @@ void merge(T* l_arr,T* r_arr,int l_len,int r_len,T* sorted_arr)
         sorted_arr[index++] = r_arr[r++];
 }
 
-int eval(int left_operand,int right_operand,string op)
-{
-    if(op == "+")
-        return left_operand + right_operand;
-    if(op == "-")
-        return left_operand - right_operand;
-    if(op == "*")
-        return left_operand * right_operand;
-    if(op == "/")
-        return left_operand / right_operand;
-    if(op == "^")
-        return power(left_operand,right_operand);
-}

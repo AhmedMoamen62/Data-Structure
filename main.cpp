@@ -17,12 +17,20 @@ int main()
     x.insert(5);
     x.insert(8);
     x.insert(6);
-    x.print();
+    cout << "Height : " << x.height() << endl;
+    cout << "Leaves : " << x.number_of_leaves() << endl;
+    x.print_postorder();
     x.insert(9);
-    x.print();
+    cout << "Height : " << x.height() << endl;
+    cout << "Leaves : " << x.number_of_leaves() << endl;
+    x.print_inorder();
     cout << x.find(6) << " " << x.find(8) << endl;
     x.remove(6);
-    x.print();
+    cout << "Height : " << x.height() << endl;
+    cout << "Leaves : " << x.number_of_leaves() << endl;
+    x.print_preorder();
+    x.clear();
+    x.print_inorder();
 
 //    Linkedlist<int> y;
 //    y.push_back(5);
