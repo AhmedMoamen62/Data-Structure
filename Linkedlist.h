@@ -16,6 +16,7 @@ public:
     Linkedlist();
     bool empty();
     int length();
+    int size();
     void push_front(T);
     void pop_front();
     void push_back(T);
@@ -117,6 +118,12 @@ int Linkedlist<T>::length()
         trav = trav->next;
     }
     return length;
+}
+
+template<class T>
+int Linkedlist<T>::size()
+{
+    return n;
 }
 
 template<class T>
@@ -240,7 +247,6 @@ void Linkedlist<T>::remove(T d)
     if(index == -1)
         return;
     removeAt(index);
-    n--;
 }
 
 template<class T>

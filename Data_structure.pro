@@ -8,11 +8,13 @@ SOURCES += \
 
 HEADERS += \
     Algorithms.h \
-    Binary_Tree.h \
+    BinaryTree.h \
     Dynamicarray.h \
+    Entry.h \
+    HashTable.h \
     Linkedlist.h \
     Node.h \
-    Node_Binary.h \
+    NodeBinary.h \
     Queue.h \
     Stack.h \
     UnionFind.h

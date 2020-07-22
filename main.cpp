@@ -4,40 +4,60 @@
 #include "Linkedlist.h"
 #include "Stack.h"
 #include "Queue.h"
-#include "Binary_Tree.h"
+#include "BinaryTree.h"
 #include "UnionFind.h"
+#include "HashTable.h"
 using namespace std;
 
 int main()
 {
-    Binary_Tree<int> x(3);
-    x.remove(3);
-    x.insert(2);
-    x.insert(6);
-    x.insert(5);
-    x.insert(8);
-    x.insert(6);
-    cout << "Height : " << x.height() << endl;
-    cout << "Leaves : " << x.number_of_leaves() << endl;
-    x.print_postorder();
-    x.insert(9);
-    cout << "Height : " << x.height() << endl;
-    cout << "Leaves : " << x.number_of_leaves() << endl;
-    x.print_inorder();
-    cout << x.find(6) << " " << x.find(8) << endl;
-    x.remove(6);
-    cout << "Height : " << x.height() << endl;
-    cout << "Leaves : " << x.number_of_leaves() << endl;
-    x.print_preorder();
-    x.clear();
-    x.print_inorder();
+    HashTable<string,int> x;
+    x.insert("ahmed",3);
+    // x.insert("mohamed",5);
+    // x.insert("ahmed",6);
+    x.insert("mohamed",5);
+    // x.remove("ahmed");
+    x.insert("ali",-10);
+    x.insert("ayman",3);
+    x.insert("shreef",41);
+    x.insert("raye2",14);
+    x["ali"] = 20;
+    // x.clear();
+    x.keys().print();
+    x.values().print();
+    cout << x.containsKey("ahmed") <<endl;
+    cout << x.containsKey("amr") << endl;
 
-//    Linkedlist<int> y;
-//    y.push_back(5);
-//    y.push_back(-2);
-//    y.push_back(1);
-//    y.pop_back();
-//    y.print();
+    //    BinaryTree<int> x(3);
+    //    x.remove(3);
+    //    x.insert(2);
+    //    x.insert(6);
+    //    x.insert(5);
+    //    x.insert(8);
+    //    x.insert(6);
+    //    cout << "Height : " << x.height() << endl;
+    //    cout << "Leaves : " << x.number_of_leaves() << endl;
+    //    x.insert(1);
+    //    cout << x.is_balanced() << endl;
+    //    x.print_postorder();
+    //    x.insert(9);
+    //    cout << "Height : " << x.height() << endl;
+    //    cout << "Leaves : " << x.number_of_leaves() << endl;
+    //    x.print_inorder();
+    //    cout << x.find(6) << " " << x.find(8) << endl;
+    //    x.remove(6);
+    //    cout << "Height : " << x.height() << endl;
+    //    cout << "Leaves : " << x.number_of_leaves() << endl;
+    //    x.print_preorder();
+    //    x.clear();
+    //    x.print_inorder();
+
+    //    Linkedlist<int> y;
+    //    y.push_back(5);
+    //    y.push_back(-2);
+    //    y.push_back(1);
+    //    y.pop_back();
+    //    y.print();
 
 
     //    char y[5];

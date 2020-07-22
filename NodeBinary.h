@@ -1,13 +1,13 @@
 #pragma once
 #include <cstdlib>
 template <class T>
-class Node_Binary
+class NodeBinary
 {
 public:
     T data;
-    Node_Binary<T>* left;
-    Node_Binary<T>* right;
-    Node_Binary(T data = 0,Node_Binary<T>* left = nullptr,Node_Binary<T>* right = nullptr)
+    NodeBinary<T>* left;
+    NodeBinary<T>* right;
+    NodeBinary(T data = 0,NodeBinary<T>* left = nullptr,NodeBinary<T>* right = nullptr)
     {
         this->data = data;
         this->left = left;
